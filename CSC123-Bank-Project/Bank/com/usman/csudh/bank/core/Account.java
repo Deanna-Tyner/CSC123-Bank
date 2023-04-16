@@ -2,27 +2,57 @@ package com.usman.csudh.bank.core;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import com.usman.csudh.util.UniqueCounter;
+import java.util.*;
 
-public class Account implements Serializable {
+
+public class Account implements Serializable { //I WANNA SAY MAKE A WHOLE
+											   //NEW METHOD TO DO CONVERSIONS
+											   //AND NOT HAVE TO RISK MESSING
+											   //WITH THE BALANCE
 	
 	private static final long serialVersionUID = 1L;
 	private String accountName;
 	private Customer accountHolder;
 	private ArrayList<Transaction> transactions;
-	
+	private String code;
+	private Currency currency; //WHAT DO I USE CURRENCY FOR?
 	private boolean open=true;
 	private int accountNumber;
 
-	protected Account(String name, Customer customer) {
+	protected Account(String name, Customer customer,Currency cur) {
 		accountName=name;
 		accountHolder=customer;
 		transactions=new ArrayList<Transaction>();
 		accountNumber=UniqueCounter.nextValue();
+		currency=cur;
+		
 	}
 	
+	public String getCode()
+	{
+		
+			return code;
+
+	}
+	
+	public void setCode(String code)
+	{
+	
+			this.code = code;
+
+	}
+	
+	public Currency getCurrency()
+	{
+		return Bank.money.get(code);
+	}
+	
+	
+
 	public String getAccountName() {
 		return accountName;
 	}
@@ -31,15 +61,31 @@ public class Account implements Serializable {
 		return accountHolder;
 	}
 
-	public double getBalance() {
-		double workingBalance=0;
+	public double getBalance() //CHANGE TO USE OTHER MONEY TYPES
+	{
 		
-		for(Transaction t: transactions) {
-			if(t.getType()==Transaction.CREDIT)workingBalance+=t.getAmount();
-			else workingBalance-=t.getAmount();
+		double workBalance = 0;
+		
+		for(Transaction trxn : transactions)
+		{
+			if(trxn.getType() == Transaction.CREDIT)workBalance += trxn.getAmount();
+			else workBalance -= trxn.getAmount();
 		}
 		
-		return workingBalance;
+		return workBalance;
+		
+	}
+	
+	public double getBalanceUSD()
+	{
+		
+		double workingBalance = getBalance();
+		
+	
+		
+			return workingBalance * currency.getExchangeRate();
+
+		
 	}
 	
 	
@@ -55,7 +101,6 @@ public class Account implements Serializable {
 	
 	
 	
-	
 	public void withdraw(double amount) throws InsufficientBalanceException {
 			
 		double balance=getBalance();
@@ -66,6 +111,7 @@ public class Account implements Serializable {
 		
 		transactions.add(new Transaction(Transaction.DEBIT,amount));
 	}
+	
 	
 	public void close() {
 		open=false;
@@ -79,9 +125,27 @@ public class Account implements Serializable {
 		return accountNumber;
 	}
 
+	
+	public String AccInfo()
+	{
+		
+		
+		String info = "Account Number: " + accountNumber + "\nName: " + accountHolder.getFirstName() + " " + accountHolder.getLastName() + "\nSSN: " + accountHolder.getSSN() +"\nCurrency: " + currency.getCode() + "\nCurrency Balance: " + currency.getCode() + " " + getBalance() + "\nUSD Balance: "  + "USD " + getBalanceUSD() + "\n";
+		return info;
+	}
+	
+	
 	public String toString() {
-		String aName=accountNumber+"("+accountName+")"+" : "+accountHolder.toString()+ " : "+getBalance()+" : "+(open?"Account Open":"Account Closed");
-		return aName;
+		
+		NumberFormat formatter = new DecimalFormat("#0.0");
+		
+		formatter.format(getBalance());
+		
+		String aName=accountNumber+"("+accountName+")"+" : "+accountHolder.toString()+ " : "+ currency.getCode() + " : " +getBalance()+" : " + "USD : " + getBalanceUSD() + " : " +(open?"Account Open":"Account Closed");
+		
+			return aName;
+		
+		
 	}
 	 
 	public void printTransactions(OutputStream out) throws IOException {

@@ -4,6 +4,7 @@ package com.usman.csudh.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Currency;
 import java.util.Scanner;
 
 /**
@@ -23,6 +24,7 @@ public class UIManager {
 	
 	private String intErrorMessage="\nInvalid input, please type an integer\n";
 	private String doubleErrorMessage="\nInvalid input, please type in a number with decimal point\n";
+	private String codeErrorMessage = "\nInvalid code, please type in a valid currency code\n";
 	
 	public UIManager(InputStream in, OutputStream out, String[] options, String prompt) {
 		this.in=in;
@@ -103,7 +105,8 @@ public class UIManager {
 		}
 
 	}
-
+	
+	
 	public  void print(String s, Object[] variables) throws IOException {
 		
 		s=String.format(s, variables); 
