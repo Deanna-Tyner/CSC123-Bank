@@ -184,7 +184,8 @@ public class MainBank {
 						
 						
 						try {
-							Bank.printExAcc(1000);
+							Bank.printExAcc(ui.readInt(MSG_ACCOUNT_NUMBER));
+							
 						} catch (NoSuchAccountException e) {
 
 							e.printStackTrace();

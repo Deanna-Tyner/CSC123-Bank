@@ -22,7 +22,7 @@ public class Bank {
 	//MAKE METHOD TO SEE IF FILE EXISTS
 	public static Account openCheckingAccount(String firstName, String lastName, String ssn, double overdraftLimit, String code) throws NoSuchCodeException {
 		Customer c=new Customer(firstName,lastName, ssn);
-		Currency cur = lookUpCode(code);
+		Currency cur = money.get(code);
 		
 		if(cur==null)cur=new Currency("USD","USD",1);
 		
@@ -139,7 +139,7 @@ public class Bank {
 	
 	public static Account openSavingAccount(String firstName, String lastName, String ssn, String code) throws NoSuchCodeException {
 		Customer c=new Customer(firstName,lastName, ssn);
-		Currency cur = lookUpCode(code);
+		Currency cur = money.get(code);
 		if(cur==null)cur=new Currency("USD","USD",1);
 		Account a=new SavingAccount(c, cur);//WHAT DO I DO HERE?
 		accounts.put(a.getAccountNumber(), a);
