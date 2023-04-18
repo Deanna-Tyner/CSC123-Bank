@@ -22,9 +22,17 @@ public class Bank {
 	//MAKE METHOD TO SEE IF FILE EXISTS
 	public static Account openCheckingAccount(String firstName, String lastName, String ssn, double overdraftLimit, String code) throws NoSuchCodeException {
 		Customer c=new Customer(firstName,lastName, ssn);
-		Currency cur = money.get(code);
+		Currency cur = null;
 		
-		if(cur==null)cur=new Currency("USD","USD",1);
+		try {
+			cur = lookUpCode(code);
+		}
+		catch(NoSuchCodeException e) {
+			cur=new Currency("USD","USD",1);
+			System.out.println(e.getMessage());
+
+		}
+		
 		
 		Account a=new CheckingAccount(c,overdraftLimit, cur);
 		accounts.put(a.getAccountNumber(), a);
@@ -116,6 +124,8 @@ public class Bank {
 				
 				money.put(currency.getCode(), currency);
 				
+			//	System.out.println(values[0].trim().toUpperCase());
+				
 				
 			}
 			
@@ -139,8 +149,16 @@ public class Bank {
 	
 	public static Account openSavingAccount(String firstName, String lastName, String ssn, String code) throws NoSuchCodeException {
 		Customer c=new Customer(firstName,lastName, ssn);
-		Currency cur = money.get(code);
-		if(cur==null)cur=new Currency("USD","USD",1);
+		Currency cur = null;
+		
+		try {
+			cur = lookUpCode(code);
+		}
+		catch(NoSuchCodeException e) {
+			cur=new Currency("USD","USD",1);
+			System.out.println(e.getMessage());
+
+		}
 		Account a=new SavingAccount(c, cur);//WHAT DO I DO HERE?
 		accounts.put(a.getAccountNumber(), a);
 		return a;
@@ -160,7 +178,7 @@ public class Bank {
 	public static Currency lookUpCode(String code) throws NoSuchCodeException
 	{
 		
-		if(!money.containsKey(code))
+		if(!money.containsKey(code.toUpperCase()))
 		{
 			throw new NoSuchCodeException("\nCode: " + code + " not found!\n\n");
 		}

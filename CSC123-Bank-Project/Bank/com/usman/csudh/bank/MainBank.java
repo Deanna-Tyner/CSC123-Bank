@@ -292,12 +292,18 @@ public class MainBank {
 					
 					
 					try {
+						
+						
+						
 					ui.print(MSG_ACCOUNT_OPENED,
 							new Object[] { Bank.openCheckingAccount(ui.readToken(MSG_FIRST_NAME),
 									ui.readToken(MSG_LAST_NAME), ui.readToken(MSG_SSN),
 									ui.readDouble(MSG_ACCOUNT_OD_LIMIT), ui.readToken(MSG_CODE)).getAccountNumber()});//FIND A WAY TO CONNECT EVERYTHING
 					
 				//	Bank.lookUpCode(MSG_CODE);
+					
+					String dum = ui.readLine("");
+					
 					
 				
 					}
