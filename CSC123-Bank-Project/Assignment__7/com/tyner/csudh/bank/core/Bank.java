@@ -1,4 +1,4 @@
-package com.usman.csudh.bank.core;
+package com.tyner.csudh.bank.core;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,7 +14,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import com.usman.csudh.bank.core.Currency;
+
+
 
 public class Bank {
 	
@@ -53,6 +54,7 @@ public class Bank {
 		
 		//HOW DO I SEPERATE THE EACH OF THE LINES INTO MAP
 		
+		
 		HttpRequest.Builder builder = HttpRequest.newBuilder();
 		builder.uri(URI.create("http://www.usman.cloud/banking/exchange-rate.csv"));
 		builder.method("GET", HttpRequest.BodyPublishers.noBody());
@@ -70,30 +72,44 @@ public class Bank {
 		
 		
 		try {
-			response = client.send(req, HttpResponse.BodyHandlers.ofString());
 			
+			
+			response = client.send(req, HttpResponse.BodyHandlers.ofString());
+
 			
 			
 			
 			String[] r = response.body().split("\n");
 			
-			
+		
+
 			
 			String a = response.body();
 		
 		//	System.out.println(a);
 					
+			//System.out.println(r);
+			
 			
 			for(String s:r)
 			{
-			
+				
+				
+				String [] values = s.split((","));
+				
 
+				currency = new Currency (values[0].toString(), values[1].toString(), Double.parseDouble(values[2]));
+				
+				money.put(currency.getCode(), currency);
+				
+				//System.out.println(Double.parseDouble(values[2]));
 				
 			}
 			
+		//	System.out.println(money.keySet());
 			
 			
-			//System.out.println(r.toString());
+		
 			
 			
 		} catch (IOException e) 
@@ -163,54 +179,10 @@ public class Bank {
 		
 
 	
-	public static boolean fileExists()
+	public static boolean websiteHasBeenRead()
 	{
 		return money.size() > 1; //PLACEHOLDER!!!!!
 		
-	}
-	
-	public static void readFile()
-	{
-		String path = "C:\\Different-Currencies\\exchange-rate.csv";
-		
-		String line = " ";
-	
-		try
-		{
-			
-			Currency currency = null;
-		
-			BufferedReader br = new BufferedReader(new FileReader(path));
-			
-			while((line = br.readLine()) != null)
-			{
-				String[] values = line.split(",");
-				//System.out.println(values.length);
-					
-				currency = new Currency (values[0].toString(), values[1].toString(), Double.parseDouble(values[2]));
-				
-				
-				money.put(currency.getCode(), currency);
-				
-			//	System.out.println(values[0].trim().toUpperCase());
-				
-				
-			}
-			
-			//System.out.println(money);
-			
-			
-		}
-		
-		
-		catch(FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
 	}
 	
 	

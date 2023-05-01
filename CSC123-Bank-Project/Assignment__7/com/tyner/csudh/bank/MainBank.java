@@ -1,17 +1,16 @@
-package com.usman.csudh.bank;
+package com.tyner.csudh.bank;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import com.usman.csudh.bank.core.Account;
-import com.usman.csudh.bank.core.AccountClosedException;
-import com.usman.csudh.bank.core.Bank;
-import com.usman.csudh.bank.core.InsufficientBalanceException;
-import com.usman.csudh.bank.core.NoSuchAccountException;
-import com.usman.csudh.bank.core.NoSuchCodeException;
-import com.usman.csudh.util.UIManager;
-
 import java.util.*;
+
+import com.tyner.csudh.bank.core.Account;
+import com.tyner.csudh.bank.core.AccountClosedException;
+import com.tyner.csudh.bank.core.Bank;
+import com.tyner.csudh.bank.core.InsufficientBalanceException;
+import com.tyner.csudh.bank.core.NoSuchAccountException;
+import com.tyner.csudh.bank.core.NoSuchCodeException;
+import com.tyner.csudh.util.UIManager;
 
 public class MainBank {
 
@@ -98,13 +97,13 @@ public class MainBank {
 			//Bank.readCurrencies():
 			
 			
-			Bank.readFile(); // THIS DETERMINES IF WHETHER OR NOT THE FILE IS BEING READ
+		//	Bank.readFile(); // THIS DETERMINES IF WHETHER OR NOT THE FILE IS BEING READ
 			
-
+			Bank.readWebsite();
 			
-			if(!Bank.fileExists())
+			if(!Bank.websiteHasBeenRead())
 			{
-				System.out.println("File not found!");
+				System.out.println("Website has not been read!");
 				
 				do {
 					option = ui.getMainOption(); //Render main menu
@@ -278,7 +277,7 @@ public class MainBank {
 				} while (option != menuOptions.length);
 				
 			}
-			else if(Bank.fileExists() == true)
+			else if(Bank.websiteHasBeenRead() == true)
 			{
 				do {
 				option = ui.getMainOption(); //Render main menu
