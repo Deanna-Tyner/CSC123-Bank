@@ -1,14 +1,14 @@
-package com.tyner.csudh.bank.core;
+package com.tyner.eight.csudh.bank.core;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
-import com.tyner.csudh.bank.core.*;
-import com.tyner.csudh.util.UniqueCounter;
-
 import java.util.*;
+
+import com.tyner.eight.csudh.util.UniqueCounter;
+
+
 
 
 public class Account implements Serializable { //I WANNA SAY MAKE A WHOLE

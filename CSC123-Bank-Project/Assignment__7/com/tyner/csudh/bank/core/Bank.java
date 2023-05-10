@@ -9,6 +9,11 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.util.*;
 
+
+
+import com.tyner.csudh.bank.core.*;
+import com.tyner.csudh.bank.core.Currency;
+
 import java.net.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -33,13 +38,20 @@ public class Bank {
 		Customer c=new Customer(firstName,lastName, ssn);
 		Currency cur = null;
 		
-		try {
+		/*try {
 			cur = lookUpCode(code);
 		}
 		catch(NoSuchCodeException e) {
 			cur=new Currency("USD","USD",1);
 			System.out.println(e.getMessage());
 
+		}*/
+		
+		cur = money.get(code);
+		
+		if(cur == null)
+		{
+			cur=new Currency("USD","USD",1);
 		}
 		
 		
@@ -191,13 +203,20 @@ public class Bank {
 		Customer c=new Customer(firstName,lastName, ssn);
 		Currency cur = null;
 		
-		try {
+		/*try {
 			cur = lookUpCode(code);
 		}
 		catch(NoSuchCodeException e) {
 			cur=new Currency("USD","USD",1);
 			System.out.println(e.getMessage());
 
+		}*/
+		
+		cur = money.get(code);
+		
+		if(cur == null)
+		{
+			cur=new Currency("USD","USD",1);
 		}
 		Account a=new SavingAccount(c, cur);//WHAT DO I DO HERE?
 		accounts.put(a.getAccountNumber(), a);

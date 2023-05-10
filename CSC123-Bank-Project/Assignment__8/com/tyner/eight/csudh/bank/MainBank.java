@@ -1,17 +1,12 @@
-package com.tyner.csudh.bank;
+package com.tyner.eight.csudh.bank;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
 
-import com.tyner.csudh.bank.MainBank;
-import com.tyner.csudh.bank.core.Account;
-import com.tyner.csudh.bank.core.AccountClosedException;
-import com.tyner.csudh.bank.core.Bank;
-import com.tyner.csudh.bank.core.InsufficientBalanceException;
-import com.tyner.csudh.bank.core.NoSuchAccountException;
-import com.tyner.csudh.bank.core.NoSuchCodeException;
-import com.tyner.csudh.util.UIManager;
+import com.tyner.eight.csudh.bank.core.*;
+import com.tyner.eight.csudh.util.UIManager;
+
 
 public class MainBank {
 
@@ -37,13 +32,6 @@ public class MainBank {
 	
 	//All messages are declared as constants to make it easier to change. Also, to ensure future proofing in case the application need to be made available
 	//in more than one languages
-	
-	
-	// DECIDED TO DO USE GET(MONEY) INSTEAD OF LOOKUP CODE // 	(5/2)
-	// DOESNT DO "CODE NOT FOUND"
-	//
-	
-	
 	public static final String MSG_ACCOUNT_OPENED = "%nAccount opened, account number is: %s%n%n";
 	public static final String MSG_ACCOUNT_CLOSED = "%nAccount number %s has been closed, balance is %s%n%n";
 	public static final String MSG_ACCOUNT_NOT_FOUND = "%nAccount number %s not found! %n%n";
@@ -107,11 +95,13 @@ public class MainBank {
 			
 		//	Bank.readFile(); // THIS DETERMINES IF WHETHER OR NOT THE FILE IS BEING READ
 			
-			Bank.readWebsite();
+		//	Bank.readWebsite();
 			
-			if(!Bank.websiteHasBeenRead())
+			//Bank.readConfig();
+			
+			if(!Bank.configHasBeenRead())
 			{
-				System.out.println("Website has not been read!");
+				System.out.println("Content has not been read!");
 				
 				do {
 					option = ui.getMainOption(); //Render main menu
@@ -285,7 +275,7 @@ public class MainBank {
 				} while (option != menuOptions.length);
 				
 			}
-			else if(Bank.websiteHasBeenRead() == true)
+			else if(Bank.configHasBeenRead() == true)
 			{
 				do {
 				option = ui.getMainOption(); //Render main menu

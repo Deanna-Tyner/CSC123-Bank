@@ -1,4 +1,4 @@
-package com.usman.csudh.bank.core;
+package com.tyner.eight.csudh.bank.core;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -8,13 +8,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.util.*;
-
+import java.util.stream.Stream;
 import java.net.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import com.usman.csudh.bank.core.Currency;
+import java.io.*;
+
 
 public class Bank {
 	
@@ -36,26 +37,10 @@ public class Bank {
 			cur = lookUpCode(code);
 		}
 		catch(NoSuchCodeException e) {
-			
-			if(lookUpCode(code)==null)
-			{
-			
-			System.out.println(e.getMessage());
 			cur=new Currency("USD","USD",1);
-			}
-			
-			
+			System.out.println(e.getMessage());
 
 		}
-		
-		
-		/*cur = money.get(code);
-		
-		if(cur == null)
-		{
-			
-		}*/
-		
 		
 		
 		Account a=new CheckingAccount(c,overdraftLimit, cur);
@@ -64,10 +49,163 @@ public class Bank {
 		
 	}
 	
+	public static boolean configTrue()
+	{
+		
+		boolean flag = false;
+		
+		try
+		{
+			File config = new File ("C:\\Different-Currencies\\config.txt\\");
+			
+			Scanner scan = new Scanner(config);
+			
+			String data = null;
+			
+			String d = null;
+			
+
+			
+			while(scan.hasNextLine())
+			{
+				 data = scan.nextLine();
+				
+				 d = data.split("=")[1];
+				
+				Stream s = null;
+				
+				if((data.contains("support")))
+				{
+					
+					//System.out.println(data);
+					
+					
+					if(d.equalsIgnoreCase("true"))
+					{
+						flag = true;
+					}
+					else if(d.equalsIgnoreCase("false"))
+					{
+						flag = false;
+					}
+
+					
+					
+				}
+			
+			
+			
+		}
+		}
+		
+		
+		catch(Exception v)
+		{
+			v.printStackTrace();
+		}
+		
+		return flag;
+		
+	}
+	
+	public static boolean configHasBeenRead()
+	{
+		return money.size() > 1;
+	}
+	
+	public static void readConfig()
+	{
+		
+		String linee = " ";
+		try 
+		{
+			
+			Currency currency = null;
+			
+			File config = new File ("C:\\Different-Currencies\\config.txt\\");
+			
+			Scanner scan = new Scanner(config);
+			
+			String data = null;
+			
+			String d = null;
+			
+			Template tem = null;
+			
+			if(configTrue() == true)
+			{
+				while(scan.hasNextLine())
+			{
+				data = scan.nextLine();
+				
+				 d = data.split("=")[1];
+				 
+				 if((data.contains("source")))
+				 {
+					 
+					
+					 System.out.println(data);
+					 
+					 if(d.equalsIgnoreCase("file"))
+					 {
+						tem = Template.newTemplate("file");
+					 }
+					 else if(d.equalsIgnoreCase("webservice"))
+					 {
+						 tem = Template.newTemplate("webservice");
+					 }
+			}
+			
+			}
+			
+			/*while((tem.readCurrencies()) != null)
+			{
+				Object[] values =  tem.readCurrencies().toArray();
+				
+				//String [] val = values;
+				
+				
+				System.out.println(values.toString());
+				
+				break;
+				
+			}*/
+			
+			for(String line : tem.readCurrencies())
+			{
+				//System.out.println(line);
+				
+				String [] values = line.split(",");
+				
+				//System.out.println(values[0]);
+				
+				currency = new Currency(values[0].toString(),values[1].toString(),Double.parseDouble(values[2]));
+				
+				money.put(currency.getCode(), currency);
+				
+				//System.out.println(money);
+				
+				
+			}
+			
+			//System.out.println(money);
+		}
+			
+			
+			
+				
+		}
+		 catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	/*public static void readWebsite() 
 	{
 		
 		//HOW DO I SEPERATE THE EACH OF THE LINES INTO MAP
+		
 		
 		HttpRequest.Builder builder = HttpRequest.newBuilder();
 		builder.uri(URI.create("http://www.usman.cloud/banking/exchange-rate.csv"));
@@ -86,30 +224,44 @@ public class Bank {
 		
 		
 		try {
-			response = client.send(req, HttpResponse.BodyHandlers.ofString());
 			
+			
+			response = client.send(req, HttpResponse.BodyHandlers.ofString());
+
 			
 			
 			
 			String[] r = response.body().split("\n");
 			
-			
+		
+
 			
 			String a = response.body();
 		
 		//	System.out.println(a);
 					
+			//System.out.println(r);
+			
 			
 			for(String s:r)
 			{
-			
+				
+				
+				String [] values = s.split((","));
+				
 
+				currency = new Currency (values[0].toString(), values[1].toString(), Double.parseDouble(values[2]));
+				
+				money.put(currency.getCode(), currency);
+				
+				//System.out.println(Double.parseDouble(values[2]));
 				
 			}
 			
+		//	System.out.println(money.keySet());
 			
 			
-			//System.out.println(r.toString());
+		
 			
 			
 		} catch (IOException e) 
@@ -179,55 +331,11 @@ public class Bank {
 		
 
 	
-	public static boolean fileExists()
+	/*public static boolean websiteHasBeenRead()
 	{
 		return money.size() > 1; //PLACEHOLDER!!!!!
 		
-	}
-	
-	public static void readFile()
-	{
-		String path = "C:\\Different-Currencies\\exchange-rate.csv";
-		
-		String line = " ";
-	
-		try
-		{
-			
-			Currency currency = null;
-		
-			BufferedReader br = new BufferedReader(new FileReader(path));
-			
-			while((line = br.readLine()) != null)
-			{
-				String[] values = line.split(",");
-				//System.out.println(values.length);
-					
-				currency = new Currency (values[0].toString(), values[1].toString(), Double.parseDouble(values[2]));
-				
-				
-				money.put(currency.getCode(), currency);
-				
-			//	System.out.println(values[0].trim().toUpperCase());
-				
-				
-			}
-			
-			//System.out.println(money);
-			
-			
-		}
-		
-		
-		catch(FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
+	}*/
 	
 	
 	

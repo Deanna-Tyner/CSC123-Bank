@@ -98,7 +98,7 @@ public class MainBank {
 			//Bank.readCurrencies():
 			
 			
-			Bank.readFile(); // THIS DETERMINES IF WHETHER OR NOT THE FILE IS BEING READ
+			//Bank.readFile(); // THIS DETERMINES IF WHETHER OR NOT THE FILE IS BEING READ
 			
 
 			

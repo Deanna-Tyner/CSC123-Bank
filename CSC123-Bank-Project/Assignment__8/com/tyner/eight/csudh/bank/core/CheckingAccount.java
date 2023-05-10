@@ -1,8 +1,7 @@
-package com.tyner.csudh.bank.core;
+package com.tyner.eight.csudh.bank.core;
 import java.io.Serializable;
 
-
-import com.tyner.csudh.bank.core.*;
+import com.tyner.eight.csudh.bank.core.*;
 
 public class CheckingAccount extends Account implements Serializable{
 	
