@@ -1,7 +1,5 @@
 package com.tyner.eight.csudh.bank.core;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -13,13 +11,17 @@ import java.io.*;
 public class HookForHttp extends Template{
 	
 	
-	protected InputStream getInputStream() throws Exception
+	public HookForHttp(String source) {
+		super(source);
+	}
+
+	protected InputStream getInputStream(String source) throws Exception
 	{
 		
 		// GET HELP READING HTTP
 		
 		HttpRequest.Builder builder = HttpRequest.newBuilder();
-		builder.uri(URI.create("http://www.usman.cloud/banking/exchange-rate.csv"));
+		builder.uri(URI.create(source));
 		builder.method("GET", HttpRequest.BodyPublishers.noBody());
 		
 		HttpRequest req = builder.build();
@@ -51,5 +53,7 @@ public class HookForHttp extends Template{
 		
 		//return (InputStream)bod.lines();
 	}
+	
+
 
 }

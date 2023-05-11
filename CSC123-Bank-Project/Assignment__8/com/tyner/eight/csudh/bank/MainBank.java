@@ -97,7 +97,7 @@ public class MainBank {
 			
 		//	Bank.readWebsite();
 			
-			//Bank.readConfig();
+			Bank.readConfig();
 			
 			if(!Bank.configHasBeenRead())
 			{

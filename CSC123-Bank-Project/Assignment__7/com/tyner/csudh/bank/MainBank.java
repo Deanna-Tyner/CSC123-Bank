@@ -102,10 +102,6 @@ public class MainBank {
 		UIManager ui = new UIManager(this.in,this.out,menuOptions,MSG_PROMPT);
 		try {
 
-			//Bank.readCurrencies():
-			
-			
-		//	Bank.readFile(); // THIS DETERMINES IF WHETHER OR NOT THE FILE IS BEING READ
 			
 			Bank.readWebsite();
 			
@@ -132,7 +128,7 @@ public class MainBank {
 										ui.readToken(MSG_LAST_NAME), ui.readToken(MSG_SSN),
 										ui.readDouble(MSG_ACCOUNT_OD_LIMIT), null).getAccountNumber()});//FIND A WAY TO CONNECT EVERYTHING
 						
-						//Bank.lookUpCode(MSG_CODE);
+;
 						
 					
 						}

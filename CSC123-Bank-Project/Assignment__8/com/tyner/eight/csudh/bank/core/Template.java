@@ -10,16 +10,22 @@ import java.util.ArrayList;
 
 public abstract class Template {
 	
-	public static Template newTemplate(String type) throws Exception
+	private String source;
+	
+	protected Template(String source) {
+		this.source = source;
+	}
+	
+	public static Template newTemplate(String source,String type) throws Exception
 	{
 		
 		if(type.equalsIgnoreCase("file"))
 		{
-			return new HookForFile();
+			return new HookForFile(source);
 		}
 		else if(type.equalsIgnoreCase("webservice"))
 		{
-			return new HookForHttp();
+			return new HookForHttp(source);
 		}
 		else
 		{
@@ -29,7 +35,7 @@ public abstract class Template {
 	
 	public ArrayList<String> readCurrencies() throws Exception
 	{
-		InputStream in = getInputStream();
+		InputStream in = getInputStream(source);
 		
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -58,6 +64,6 @@ public abstract class Template {
 		
 	}
 	
-	protected abstract InputStream getInputStream() throws Exception;
+	protected abstract InputStream getInputStream(String source) throws Exception;
 
 }

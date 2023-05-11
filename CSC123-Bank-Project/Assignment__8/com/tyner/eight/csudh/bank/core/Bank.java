@@ -76,10 +76,7 @@ public class Bank {
 				
 				if((data.contains("support")))
 				{
-					
-					//System.out.println(data);
-					
-					
+
 					if(d.equalsIgnoreCase("true"))
 					{
 						flag = true;
@@ -89,12 +86,8 @@ public class Bank {
 						flag = false;
 					}
 
-					
-					
 				}
-			
-			
-			
+
 		}
 		}
 		
@@ -108,9 +101,103 @@ public class Bank {
 		
 	}
 	
+	
+	
 	public static boolean configHasBeenRead()
 	{
-		return money.size() > 1;
+		return configTrue();
+	}
+	
+	
+	
+	public static String readingFile()
+	{
+		
+		String line = null;
+		try 
+		{
+			
+			File config = new File ("C:\\Different-Currencies\\config.txt\\");
+			
+			Scanner scan = new Scanner(config);
+			
+			String data = null;
+			
+			String d = null;
+			
+			File file = null;
+			
+			Scanner reader = null;
+			
+			
+			while(scan.hasNextLine())
+			{
+				data = scan.nextLine();
+				
+				d = data.split("=")[1];
+				
+				if(data.contains("currency"))
+				{
+					if(d.contains("csv"))
+					{
+						
+						file = new File(d);
+						
+						line = file.getPath();
+						
+					}
+				}
+			}	
+		}
+		
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return line;	
+	}
+	
+	
+	
+	public static String readingHttp()
+	{
+		String line = null;
+		try 
+		{
+			
+	
+			
+			File config = new File ("C:\\Different-Currencies\\config.txt\\");
+			
+			Scanner scan = new Scanner(config);
+			
+			String data = null;
+			
+			String d = null;
+			
+			
+			while(scan.hasNextLine())
+			{
+				
+				data = scan.nextLine();
+				
+				d = data.split("=")[1];
+				
+				if(data.contains("url"))
+				{
+					if(d.contains("csv"))
+					{
+						line = d;
+					}
+				}	
+			}	
+	}
+		
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return line;
 	}
 	
 	public static void readConfig()
@@ -148,11 +235,11 @@ public class Bank {
 					 
 					 if(d.equalsIgnoreCase("file"))
 					 {
-						tem = Template.newTemplate("file");
+						tem = Template.newTemplate(readingFile(),"file");
 					 }
 					 else if(d.equalsIgnoreCase("webservice"))
 					 {
-						 tem = Template.newTemplate("webservice");
+						 tem = Template.newTemplate(readingHttp(),"webservice");
 					 }
 			}
 			
@@ -190,6 +277,13 @@ public class Bank {
 			
 			//System.out.println(money);
 		}
+			else if(configTrue()==false)
+			{
+				currency = new Currency("USD","United States Dollar",1.0);
+				money.put(currency.getCode(), currency);
+			}
+			
+			
 			
 			
 			

