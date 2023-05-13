@@ -18,16 +18,13 @@ import com.usman.csudh.bank.core.Currency;
 
 public class Bank {
 	
-	//MAKE A METHOD THAT ASKS FOR USER INPUT FOR CODE, USE IGNORE CASE
 	
 	private static Map<Integer,Account> accounts=new TreeMap<Integer,Account>();
 	
 	protected static Map<String, Currency> money = new HashMap<String,Currency>();
 	
 	
-	//USE .LOOKUPCODE(CODE) INSTEAD OF .GET(CODE)
 	
-	//MAKE METHOD TO SEE IF FILE EXISTS
 	public static Account openCheckingAccount(String firstName, String lastName, String ssn, double overdraftLimit, String code) throws NoSuchCodeException {
 		Customer c=new Customer(firstName,lastName, ssn);
 		Currency cur = null;
@@ -49,13 +46,6 @@ public class Bank {
 		}
 		
 		
-		/*cur = money.get(code);
-		
-		if(cur == null)
-		{
-			
-		}*/
-		
 		
 		
 		Account a=new CheckingAccount(c,overdraftLimit, cur);
@@ -64,65 +54,7 @@ public class Bank {
 		
 	}
 	
-	/*public static void readWebsite() 
-	{
-		
-		//HOW DO I SEPERATE THE EACH OF THE LINES INTO MAP
-		
-		HttpRequest.Builder builder = HttpRequest.newBuilder();
-		builder.uri(URI.create("http://www.usman.cloud/banking/exchange-rate.csv"));
-		builder.method("GET", HttpRequest.BodyPublishers.noBody());
-		
-		HttpRequest req = builder.build();
-		
-		HttpClient client = HttpClient.newHttpClient();
-		
-		HttpResponse<String> response = null;
-		
-		Currency currency = null;
-		
-		String line = " ";
-		
-		
-		
-		try {
-			response = client.send(req, HttpResponse.BodyHandlers.ofString());
-			
-			
-			
-			
-			String[] r = response.body().split("\n");
-			
-			
-			
-			String a = response.body();
-		
-		//	System.out.println(a);
-					
-			
-			for(String s:r)
-			{
-			
-
-				
-			}
-			
-			
-			
-			//System.out.println(r.toString());
-			
-			
-		} catch (IOException e) 
-		{
-		
-			e.printStackTrace();
-		} catch (InterruptedException e) 
-		{
-			e.printStackTrace();
-		}
-		
-		
-	}*/
+	
 	
 	
 	public static double Exchange(String buying, String selling, double Amount) throws NoSuchCodeException
@@ -201,19 +133,19 @@ public class Bank {
 			while((line = br.readLine()) != null)
 			{
 				String[] values = line.split(",");
-				//System.out.println(values.length);
+				
 					
 				currency = new Currency (values[0].toString(), values[1].toString(), Double.parseDouble(values[2]));
 				
 				
 				money.put(currency.getCode(), currency);
 				
-			//	System.out.println(values[0].trim().toUpperCase());
+			
 				
 				
 			}
 			
-			//System.out.println(money);
+
 			
 			
 		}
@@ -243,7 +175,7 @@ public class Bank {
 			System.out.println(e.getMessage());
 
 		}
-		Account a=new SavingAccount(c, cur);//WHAT DO I DO HERE?
+		Account a=new SavingAccount(c, cur);
 		accounts.put(a.getAccountNumber(), a);
 		return a;
 		
@@ -287,21 +219,12 @@ public class Bank {
 		
 	}
 	
-	/*public static void makeDepositExchange(int accountNumber, double amount, String code)throws AccountClosedException, NoSuchAccountException,NoSuchCodeException
-	{
-		
-		lookup(accountNumber).depositExchange(amount);
-	}*/
+	
 	
 	public static void makeWithdrawal(int accountNumber, double amount) throws InsufficientBalanceException, NoSuchAccountException {
 		lookup(accountNumber).withdraw(amount);
 	}
 	
-	
-	/*public static void makeWithdrawalExchange(int accountNumber, double amount) throws InsufficientBalanceException, NoSuchAccountException {
-		lookup(accountNumber).withdrawExchange(amount);
-	}*/
-
 	
 	public static void closeAccount(int accountNumber) throws NoSuchAccountException {
 		lookup(accountNumber).close();

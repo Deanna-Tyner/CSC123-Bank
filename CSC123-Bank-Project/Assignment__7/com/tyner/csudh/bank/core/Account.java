@@ -11,17 +11,14 @@ import com.tyner.csudh.util.UniqueCounter;
 import java.util.*;
 
 
-public class Account implements Serializable { //I WANNA SAY MAKE A WHOLE
-											   //NEW METHOD TO DO CONVERSIONS
-											   //AND NOT HAVE TO RISK MESSING
-											   //WITH THE BALANCE
+public class Account implements Serializable { 
 	
 	private static final long serialVersionUID = 1L;
 	private String accountName;
 	private Customer accountHolder;
 	private ArrayList<Transaction> transactions;
 	private String code;
-	private Currency currency; //WHAT DO I USE CURRENCY FOR?
+	private Currency currency; 
 	private boolean open=true;
 	private int accountNumber;
 
@@ -63,7 +60,7 @@ public class Account implements Serializable { //I WANNA SAY MAKE A WHOLE
 		return accountHolder;
 	}
 
-	public double getBalance() //CHANGE TO USE OTHER MONEY TYPES
+	public double getBalance() 
 	{
 		
 		double workBalance = 0;

@@ -19,16 +19,14 @@ import java.io.*;
 
 public class Bank {
 	
-	//MAKE A METHOD THAT ASKS FOR USER INPUT FOR CODE, USE IGNORE CASE
+	
 	
 	private static Map<Integer,Account> accounts=new TreeMap<Integer,Account>();
 	
 	protected static Map<String, Currency> money = new HashMap<String,Currency>();
 	
 	
-	//USE .LOOKUPCODE(CODE) INSTEAD OF .GET(CODE)
 	
-	//MAKE METHOD TO SEE IF FILE EXISTS
 	public static Account openCheckingAccount(String firstName, String lastName, String ssn, double overdraftLimit, String code) throws NoSuchCodeException {
 		Customer c=new Customer(firstName,lastName, ssn);
 		Currency cur = null;
@@ -245,37 +243,26 @@ public class Bank {
 			
 			}
 			
-			/*while((tem.readCurrencies()) != null)
-			{
-				Object[] values =  tem.readCurrencies().toArray();
-				
-				//String [] val = values;
-				
-				
-				System.out.println(values.toString());
-				
-				break;
-				
-			}*/
+			
 			
 			for(String line : tem.readCurrencies())
 			{
-				//System.out.println(line);
+			
 				
 				String [] values = line.split(",");
 				
-				//System.out.println(values[0]);
+				
 				
 				currency = new Currency(values[0].toString(),values[1].toString(),Double.parseDouble(values[2]));
 				
 				money.put(currency.getCode(), currency);
 				
-				//System.out.println(money);
+			
 				
 				
 			}
 			
-			//System.out.println(money);
+			
 		}
 			else if(configTrue()==false)
 			{
@@ -295,80 +282,6 @@ public class Bank {
 		
 	}
 	
-	/*public static void readWebsite() 
-	{
-		
-		//HOW DO I SEPERATE THE EACH OF THE LINES INTO MAP
-		
-		
-		HttpRequest.Builder builder = HttpRequest.newBuilder();
-		builder.uri(URI.create("http://www.usman.cloud/banking/exchange-rate.csv"));
-		builder.method("GET", HttpRequest.BodyPublishers.noBody());
-		
-		HttpRequest req = builder.build();
-		
-		HttpClient client = HttpClient.newHttpClient();
-		
-		HttpResponse<String> response = null;
-		
-		Currency currency = null;
-		
-		String line = " ";
-		
-		
-		
-		try {
-			
-			
-			response = client.send(req, HttpResponse.BodyHandlers.ofString());
-
-			
-			
-			
-			String[] r = response.body().split("\n");
-			
-		
-
-			
-			String a = response.body();
-		
-		//	System.out.println(a);
-					
-			//System.out.println(r);
-			
-			
-			for(String s:r)
-			{
-				
-				
-				String [] values = s.split((","));
-				
-
-				currency = new Currency (values[0].toString(), values[1].toString(), Double.parseDouble(values[2]));
-				
-				money.put(currency.getCode(), currency);
-				
-				//System.out.println(Double.parseDouble(values[2]));
-				
-			}
-			
-		//	System.out.println(money.keySet());
-			
-			
-		
-			
-			
-		} catch (IOException e) 
-		{
-		
-			e.printStackTrace();
-		} catch (InterruptedException e) 
-		{
-			e.printStackTrace();
-		}
-		
-		
-	}*/
 	
 	
 	public static double Exchange(String buying, String selling, double Amount) throws NoSuchCodeException
@@ -385,7 +298,7 @@ public class Bank {
 		
 		String AH = "USD";
 		
-		//System.out.println(has+" "+hass);
+		
 		
 		if(!(money.containsKey(buying)) || !(money.containsKey(selling))) 
 		{
@@ -423,13 +336,6 @@ public class Bank {
 		return result;
 	}
 		
-
-	
-	/*public static boolean websiteHasBeenRead()
-	{
-		return money.size() > 1; //PLACEHOLDER!!!!!
-		
-	}*/
 	
 	
 	
@@ -489,21 +395,12 @@ public class Bank {
 		
 	}
 	
-	/*public static void makeDepositExchange(int accountNumber, double amount, String code)throws AccountClosedException, NoSuchAccountException,NoSuchCodeException
-	{
-		
-		lookup(accountNumber).depositExchange(amount);
-	}*/
 	
 	public static void makeWithdrawal(int accountNumber, double amount) throws InsufficientBalanceException, NoSuchAccountException {
 		lookup(accountNumber).withdraw(amount);
 	}
 	
 	
-	/*public static void makeWithdrawalExchange(int accountNumber, double amount) throws InsufficientBalanceException, NoSuchAccountException {
-		lookup(accountNumber).withdrawExchange(amount);
-	}*/
-
 	
 	public static void closeAccount(int accountNumber) throws NoSuchAccountException {
 		lookup(accountNumber).close();

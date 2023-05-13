@@ -95,10 +95,10 @@ public class MainBank {
 		UIManager ui = new UIManager(this.in,this.out,menuOptions,MSG_PROMPT);
 		try {
 
-			//Bank.readCurrencies():
 			
 			
-			//Bank.readFile(); // THIS DETERMINES IF WHETHER OR NOT THE FILE IS BEING READ
+			
+			Bank.readFile(); // THIS DETERMINES IF WHETHER OR NOT THE FILE IS BEING READ
 			
 
 			
@@ -139,7 +139,6 @@ public class MainBank {
 					case 2:
 						
 						//Compact statement to accept user input, open account, and print the result including the account number
-						//HAS TO ASK FOR TYPE OF EXCHANGE CODE
 						
 						try
 						{
@@ -177,14 +176,8 @@ public class MainBank {
 
 					case 5:
 					{
-						//WIL ASK FOR ACCOUNT INFO. E.I TYPE OF ACCOUNT, ACCOUNT NUMBER, TYPE OF CURRENCY, CURRENCY IN USD, ETC
 						
-						//WHY DOES THIS ACT LIKE IT CAN DO DEPOSITS? THATS 6'S JOB
-						
-						//Account.AccInfo();
-						
-						
-						
+
 						try {
 							Bank.printExAcc(ui.readInt(MSG_ACCOUNT_NUMBER));
 							
@@ -225,11 +218,6 @@ public class MainBank {
 						
 					case 8:
 						
-						/*double Amount2 = ui.readDouble(MSG_AMOUNT2);
-						String buy = ui.readLine(MSG_BUYING);
-						String sell = ui.readLine(MSG_SELLING);*/
-						
-						//ui.print(sell, menuOptions);
 						try
 						{
 							double Amount2 = ui.readDouble(MSG_AMOUNT2);
@@ -238,8 +226,6 @@ public class MainBank {
 							String sell = ui.readLine(MSG_SELLING);
 							
 							
-							
-							//ui.printDouble(MSG_RESULT, new Object[] {Bank.Exchange(buy, sell, ui.readDouble(MSG_AMOUNT2))});
 							
 							Bank.Exchange(buy, sell, Amount2);
 							
@@ -288,9 +274,7 @@ public class MainBank {
 					
 					
 					//Compact statement to accept user input, open account, and print the result including the account number
-					//HAS TO ASK FOR TYPE OF EXCHANGE CODE
 					
-					//IT TAKES THE CODE, FIND OUT HOW TO CONNECT IT TO ACCOUNTS
 					
 					
 					try {
@@ -302,7 +286,7 @@ public class MainBank {
 									ui.readToken(MSG_LAST_NAME), ui.readToken(MSG_SSN),
 									ui.readDouble(MSG_ACCOUNT_OD_LIMIT), ui.readToken(MSG_CODE)).getAccountNumber()});//FIND A WAY TO CONNECT EVERYTHING
 					
-				//	Bank.lookUpCode(MSG_CODE);
+
 					
 					String dum = ui.readLine("");
 					
@@ -319,7 +303,7 @@ public class MainBank {
 				case 2:
 					
 					//Compact statement to accept user input, open account, and print the result including the account number
-					//HAS TO ASK FOR TYPE OF EXCHANGE CODE
+
 					
 					try
 					{
@@ -357,9 +341,6 @@ public class MainBank {
 
 				case 5:
 				{
-					//WIL ASK FOR ACCOUNT INFO. E.I TYPE OF ACCOUNT, ACCOUNT NUMBER, TYPE OF CURRENCY, CURRENCY IN USD, ETC
-					
-					//WHY DOES THIS ACT LIKE IT CAN DO DEPOSITS? THATS 6'S JOB
 					
 					try {
 						Bank.printExAcc(ui.readInt(MSG_ACCOUNT_NUMBER));

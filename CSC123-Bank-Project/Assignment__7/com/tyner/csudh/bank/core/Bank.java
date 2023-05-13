@@ -24,16 +24,12 @@ import java.net.http.HttpResponse;
 
 public class Bank {
 	
-	//MAKE A METHOD THAT ASKS FOR USER INPUT FOR CODE, USE IGNORE CASE
 	
 	private static Map<Integer,Account> accounts=new TreeMap<Integer,Account>();
 	
 	protected static Map<String, Currency> money = new HashMap<String,Currency>();
 	
 	
-	//USE .LOOKUPCODE(CODE) INSTEAD OF .GET(CODE)
-	
-	//MAKE METHOD TO SEE IF FILE EXISTS
 	public static Account openCheckingAccount(String firstName, String lastName, String ssn, double overdraftLimit, String code) throws NoSuchCodeException {
 		Customer c=new Customer(firstName,lastName, ssn);
 		Currency cur = null;
@@ -98,10 +94,6 @@ public class Bank {
 			
 			String a = response.body();
 		
-		//	System.out.println(a);
-					
-			//System.out.println(r);
-			
 			
 			for(String s:r)
 			{
@@ -114,14 +106,7 @@ public class Bank {
 				
 				money.put(currency.getCode(), currency);
 				
-				//System.out.println(Double.parseDouble(values[2]));
-				
 			}
-			
-		//	System.out.println(money.keySet());
-			
-			
-		
 			
 			
 		} catch (IOException e) 
@@ -151,7 +136,6 @@ public class Bank {
 		
 		String AH = "USD";
 		
-		//System.out.println(has+" "+hass);
 		
 		if(!(money.containsKey(buying)) || !(money.containsKey(selling))) 
 		{
@@ -193,7 +177,7 @@ public class Bank {
 	
 	public static boolean websiteHasBeenRead()
 	{
-		return money.size() > 1; //PLACEHOLDER!!!!!
+		return money.size() > 1;
 		
 	}
 	
@@ -262,21 +246,11 @@ public class Bank {
 		
 	}
 	
-	/*public static void makeDepositExchange(int accountNumber, double amount, String code)throws AccountClosedException, NoSuchAccountException,NoSuchCodeException
-	{
-		
-		lookup(accountNumber).depositExchange(amount);
-	}*/
 	
 	public static void makeWithdrawal(int accountNumber, double amount) throws InsufficientBalanceException, NoSuchAccountException {
 		lookup(accountNumber).withdraw(amount);
 	}
 	
-	
-	/*public static void makeWithdrawalExchange(int accountNumber, double amount) throws InsufficientBalanceException, NoSuchAccountException {
-		lookup(accountNumber).withdrawExchange(amount);
-	}*/
-
 	
 	public static void closeAccount(int accountNumber) throws NoSuchAccountException {
 		lookup(accountNumber).close();

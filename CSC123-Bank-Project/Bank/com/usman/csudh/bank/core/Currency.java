@@ -11,7 +11,7 @@ public class Currency {
 	
 	protected  String moneyName;
 	
-	protected  double exchangeRate; //how do I parseInt the exchange rate?
+	protected  double exchangeRate; 
 	
 	public Currency(String code, String moneyName, double exchangeRate)
 	{
