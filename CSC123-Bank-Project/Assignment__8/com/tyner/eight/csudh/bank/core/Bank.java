@@ -163,8 +163,7 @@ public class Bank {
 		try 
 		{
 			
-	
-			
+
 			File config = new File ("C:\\Different-Currencies\\config.txt\\");
 			
 			Scanner scan = new Scanner(config);
@@ -250,15 +249,10 @@ public class Bank {
 			
 				
 				String [] values = line.split(",");
-				
-				
-				
+			
 				currency = new Currency(values[0].toString(),values[1].toString(),Double.parseDouble(values[2]));
 				
 				money.put(currency.getCode(), currency);
-				
-			
-				
 				
 			}
 			
@@ -269,12 +263,7 @@ public class Bank {
 				currency = new Currency("USD","United States Dollar",1.0);
 				money.put(currency.getCode(), currency);
 			}
-			
-			
-			
-			
-			
-				
+		
 		}
 		 catch (Exception e) {
 			e.printStackTrace();

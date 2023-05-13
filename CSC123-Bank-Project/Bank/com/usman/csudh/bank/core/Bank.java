@@ -40,13 +40,8 @@ public class Bank {
 			System.out.println(e.getMessage());
 			cur=new Currency("USD","USD",1);
 			}
-			
-			
 
 		}
-		
-		
-		
 		
 		Account a=new CheckingAccount(c,overdraftLimit, cur);
 		accounts.put(a.getAccountNumber(), a);
@@ -171,13 +166,20 @@ public class Bank {
 			cur = lookUpCode(code);
 		}
 		catch(NoSuchCodeException e) {
-			cur=new Currency("USD","USD",1);
+			
+			if(lookUpCode(code)==null)
+			{
+			
 			System.out.println(e.getMessage());
+			cur=new Currency("USD","USD",1);
+			}
 
 		}
 		Account a=new SavingAccount(c, cur);
 		accounts.put(a.getAccountNumber(), a);
 		return a;
+		
+		
 		
 	}
 
