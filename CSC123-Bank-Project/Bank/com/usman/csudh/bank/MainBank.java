@@ -15,28 +15,7 @@ import java.util.*;
 
 public class MainBank {
 
-	//HOW DO I MAKE ANOTHER THING TO ASK FOR A STRING?
-	
-	//IT READS THE CODE :D!! BUT IT STILL CONTINUES TO WORK WITH IT EVEN THOUGH IT SHOULDN'T
-	//ASK HOW TO CHANGE THAT/ADD EXCEPTION THAT DOSEN'T CRASH THE PROGRAM
-	
-	//MAKE IT THE BANK START NORMALLY IF THE BANK DOESN'T EXIST
-	
-	
-	// 4/9: ABLE TO MAKE IT WORK WITHOUT THE FILE, WON'T PRINT ACCOUNT INFO THOUGH
-	
-	//4/9: FIND OUT HOW TO PRINT OUT EXCHANGE AND PRINT ACCOUNT INFO
-	
-	
-	// 4/11: EVERYTHING WORKS!! BUT I DECIDED TO USE PRINT STATEMENTS IN THE METHODS BECAUSE
-	//		 I JUST CAN'T UNDERSTAND HIS PRINT METHODS
-	
-	
-	// 4/11: EVERYTHING STILL WORKS :DDDDD!!!!!!!
-	//		 THE ONLY ISSUE IS THAT I NEED TO FORMAT THE BALANCES
-	
-	//All messages are declared as constants to make it easier to change. Also, to ensure future proofing in case the application need to be made available
-	//in more than one languages
+
 	public static final String MSG_ACCOUNT_OPENED = "%nAccount opened, account number is: %s%n%n";
 	public static final String MSG_ACCOUNT_CLOSED = "%nAccount number %s has been closed, balance is %s%n%n";
 	public static final String MSG_ACCOUNT_NOT_FOUND = "%nAccount number %s not found! %n%n";
