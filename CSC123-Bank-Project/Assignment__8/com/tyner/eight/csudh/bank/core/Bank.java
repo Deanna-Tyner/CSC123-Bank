@@ -160,6 +160,8 @@ public class Bank {
 	public static String readingHttp()
 	{
 		String line = null;
+		
+		String all = null;
 		try 
 		{
 			
@@ -184,7 +186,15 @@ public class Bank {
 				{
 					if(d.contains("csv"))
 					{
+						
 						line = d;
+						
+						String a = line.split("banking/exchange-rate.csv")[0];
+						String h = a.split("//")[1];
+						String w = h.split("/")[0];
+						
+						all = w;
+
 					}
 				}	
 			}	
@@ -194,7 +204,7 @@ public class Bank {
 			e.printStackTrace();
 		}
 		
-		return line;
+		return all;
 	}
 	
 	public static void readConfig()
@@ -238,6 +248,7 @@ public class Bank {
 					 {
 						 tem = Template.newTemplate(readingHttp(),"webservice");
 					 }
+					 
 			}
 			
 			}
@@ -255,7 +266,7 @@ public class Bank {
 				money.put(currency.getCode(), currency);
 				
 			}
-			
+
 			
 		}
 			else if(configTrue()==false)

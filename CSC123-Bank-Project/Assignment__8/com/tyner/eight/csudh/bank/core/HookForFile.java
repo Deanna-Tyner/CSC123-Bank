@@ -14,12 +14,8 @@ public class HookForFile extends Template{
 	@Override
 	protected InputStream getInputStream(String source) throws Exception
 	{
-		
-		
-		
+
 			return new FileInputStream(new File(source));
-	
-	
 	}
 
 }
